@@ -1,7 +1,8 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import connectDB from './db.js';
+import {NOT_FOUND_ERROR} from './constants/errors.js';
 
 const app = express();
 
@@ -16,16 +17,15 @@ app.use(cors(corsOptions));
 
 dotenv.config();
 
-mongoose
-  .connect('mongodb+srv://Denys1994:pp74tvVguAJTZZa@cluster0.l8hygki.mongodb.net/todo-db?retryWrites=true&w=majority')
-  .then(() => console.log('DB Ok'))
-  .catch((err) => console.log('ERROR', err));
+connectDB();
 
-app.use((req, res, next) => {
-  res.status(404).json({message: 'Page not found'});
+app.use((req, res) => {
+  res.status(NOT_FOUND_ERROR.code).json({message: NOT_FOUND_ERROR.message});
 });
 
-app.listen('4444', (err) => {
+const PORT = process.env.PORT || 4444;
+
+app.listen(PORT, (err) => {
   if (err) {
     return console.log(err);
   }
