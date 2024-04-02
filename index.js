@@ -25,7 +25,7 @@ app.use((req, res) => {
   res.status(PAGE_NOT_FOUND_ERROR.status).json({message: PAGE_NOT_FOUND_ERROR.message});
 });
 
-const PORT = process.env.PORT || 4444;
+const PORT = process.env.PORT || process.env.DEFAULT_PORT;
 
 app.listen(PORT, (err) => {
   if (err) {

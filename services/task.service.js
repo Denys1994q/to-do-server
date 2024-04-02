@@ -5,7 +5,6 @@ export const getAllTasks = async () => {
     const tasks = await Task.find();
     return tasks;
   } catch (error) {
-    console.error('Error fetching tasks:', error);
     throw new Error('Error fetching tasks');
   }
 };

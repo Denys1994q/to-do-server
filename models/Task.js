@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import {PriorityEnum, StatusEnum} from '../constants/task.enum.js';
 
 const TaskSchema = new mongoose.Schema({
   title: {
@@ -6,14 +7,14 @@ const TaskSchema = new mongoose.Schema({
     required: true
   },
   priority: {
-    type: String,
-    enum: ['1', '2', '3', '4'],
+    type: Number,
+    enum: Object.values(PriorityEnum),
     required: true
   },
   status: {
-    type: String,
-    enum: ['active', 'in progress', 'completed'],
-    default: 'active',
+    type: Number,
+    enum: Object.values(StatusEnum),
+    default: 1,
     required: true
   },
   expired_date: {

@@ -7,7 +7,6 @@ export const getTasks = async (req, res) => {
     const tasks = await Task.find();
     return res.status(StatusCodes.OK).json(tasks);
   } catch (error) {
-    console.error('Error fetching tasks:', error);
     return res.status(INTERNAL_SERVER_ERROR.status).json({message: INTERNAL_SERVER_ERROR.message});
   }
 };
