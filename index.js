@@ -2,7 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './db.js';
-import {NOT_FOUND_ERROR} from './constants/errors.js';
+import taskRoutes from './routes/task.routes.js';
+import {PAGE_NOT_FOUND_ERROR} from './constants/errors.js';
 
 const app = express();
 
@@ -16,14 +17,15 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 dotenv.config();
-
 connectDB();
 
+app.use('/task', taskRoutes);
+
 app.use((req, res) => {
-  res.status(NOT_FOUND_ERROR.code).json({message: NOT_FOUND_ERROR.message});
+  res.status(PAGE_NOT_FOUND_ERROR.status).json({message: PAGE_NOT_FOUND_ERROR.message});
 });
 
-const PORT = process.env.PORT || 4444;
+const PORT = process.env.PORT || process.env.DEFAULT_PORT;
 
 app.listen(PORT, (err) => {
   if (err) {
