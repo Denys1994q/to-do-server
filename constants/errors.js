@@ -14,3 +14,8 @@ export const BAD_REQUEST_ERROR = {
   status: StatusCodes.BAD_REQUEST,
   message: 'Bad request'
 };
+
+export const NOT_FOUND_ERROR = {
+  status: StatusCodes.NOT_FOUND,
+  message: 'Not found'
+};

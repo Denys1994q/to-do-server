@@ -21,3 +21,12 @@ export const createTask = async (data) => {
     throw new Error(INTERNAL_SERVER_ERROR.message);
   }
 };
+
+export const getTaskById = async (id) => {
+  try {
+    const task = await Task.findById(id);
+    return task;
+  } catch (error) {
+    throw new Error(INTERNAL_SERVER_ERROR.message);
+  }
+};
