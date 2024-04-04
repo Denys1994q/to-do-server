@@ -7,6 +7,12 @@ export const PriorityEnum = {
 
 export const StatusEnum = {
   NEW: 1,
-  IN_PROGRESS: 2,
-  COMPLETED: 3
+  COMPLETED: 2
+};
+
+export const TagsEnum = {
+  WORK: 1,
+  FAMILY: 2,
+  EDUCATION: 3,
+  REST: 4
 };

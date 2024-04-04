@@ -9,3 +9,8 @@ export const INTERNAL_SERVER_ERROR = {
   status: StatusCodes.INTERNAL_SERVER_ERROR,
   message: 'Internal Server Error'
 };
+
+export const BAD_REQUEST_ERROR = {
+  status: StatusCodes.BAD_REQUEST,
+  message: 'Bad request'
+};

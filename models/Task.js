@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import {PriorityEnum, StatusEnum} from '../constants/task.enum.js';
+import {PriorityEnum, StatusEnum, TagsEnum} from '../constants/task.enum.js';
 
 const TaskSchema = new mongoose.Schema({
   title: {
@@ -9,13 +9,23 @@ const TaskSchema = new mongoose.Schema({
   priority: {
     type: Number,
     enum: Object.values(PriorityEnum),
+    default: PriorityEnum.LOW,
     required: true
   },
   status: {
     type: Number,
     enum: Object.values(StatusEnum),
-    default: 1,
+    default: StatusEnum.NEW,
     required: true
+  },
+  tags: {
+    type: [
+      {
+        type: Number,
+        enum: Object.values(TagsEnum)
+      }
+    ],
+    default: []
   },
   expired_date: {
     type: Date,
