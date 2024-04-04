@@ -6,7 +6,7 @@ export const PriorityEnum = {
 };
 
 export const StatusEnum = {
-  IN_PROGRESS: 1,
+  NEW: 1,
   COMPLETED: 2
 };
 

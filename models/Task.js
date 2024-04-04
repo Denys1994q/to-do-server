@@ -15,7 +15,7 @@ const TaskSchema = new mongoose.Schema({
   status: {
     type: Number,
     enum: Object.values(StatusEnum),
-    default: StatusEnum.IN_PROGRESS,
+    default: StatusEnum.NEW,
     required: true
   },
   tags: {

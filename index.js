@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import connectDB from './db.js';
 import taskRoutes from './routes/task.routes.js';
 import {PAGE_NOT_FOUND_ERROR} from './constants/errors.js';
+import {routes} from './constants/routes.js';
 
 const app = express();
 
@@ -19,7 +20,7 @@ app.use(cors(corsOptions));
 dotenv.config();
 connectDB();
 
-app.use('/task', taskRoutes);
+app.use(`${routes.root}${routes.task}`, taskRoutes);
 
 app.use((req, res) => {
   res.status(PAGE_NOT_FOUND_ERROR.status).json({message: PAGE_NOT_FOUND_ERROR.message});
