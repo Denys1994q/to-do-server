@@ -52,3 +52,33 @@ export const updateTask = async (req, res) => {
     return handleServerError(res);
   }
 };
+
+export const updateTaskStatus = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const task = await TaskService.getTaskById(id);
+    if (!task) {
+      return handleNotFoundError(res);
+    }
+    await TaskService.updateTaskStatus(id);
+
+    return res.status(StatusCodes.OK).json({message: 'Successfully updated'});
+  } catch (error) {
+    return handleServerError(res);
+  }
+};
+
+export const deleteTask = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const task = await TaskService.getTaskById(id);
+    if (!task) {
+      return handleNotFoundError(res);
+    }
+    const deletedTask = await TaskService.deleteTask(id);
+
+    return res.status(StatusCodes.OK).json({message: 'Task is deleted', deletedTask});
+  } catch (error) {
+    return handleServerError(res);
+  }
+};

@@ -51,3 +51,30 @@ export const updateTask = async (id, {title, priority, tags, expired_date}) => {
     throw new Error(INTERNAL_SERVER_ERROR.message);
   }
 };
+
+export const updateTaskStatus = async (id) => {
+  try {
+    const updatedTask = await Task.updateOne(
+      {
+        _id: id
+      },
+      {
+        status: 2
+      }
+    );
+
+    return updatedTask;
+  } catch (error) {
+    throw new Error(INTERNAL_SERVER_ERROR.message);
+  }
+};
+
+export const deleteTask = async (id) => {
+  try {
+    const deletedTask = await Task.findOneAndDelete({_id: id});
+
+    return deletedTask;
+  } catch (error) {
+    throw new Error(INTERNAL_SERVER_ERROR.message);
+  }
+};

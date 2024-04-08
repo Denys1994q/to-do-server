@@ -1,4 +1,5 @@
 export const routes = {
   root: '/',
-  task: 'task'
+  task: 'task',
+  complete: 'complete'
 };
