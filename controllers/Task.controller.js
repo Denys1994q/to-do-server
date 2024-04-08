@@ -1,6 +1,6 @@
 import {StatusCodes} from 'http-status-codes';
-import {INTERNAL_SERVER_ERROR, NOT_FOUND_ERROR} from '../constants/errors.js';
 import * as TaskService from '../services/task.service.js';
+import {handleServerError, handleNotFoundError} from '../utils/handleServerError.uril.js';
 
 export const getTasks = async (req, res) => {
   try {
@@ -8,7 +8,7 @@ export const getTasks = async (req, res) => {
 
     return res.status(StatusCodes.OK).json(tasks);
   } catch (error) {
-    return res.status(INTERNAL_SERVER_ERROR.status).json({message: INTERNAL_SERVER_ERROR.message});
+    return handleServerError(res);
   }
 };
 
@@ -19,7 +19,7 @@ export const createTask = async (req, res) => {
 
     return res.status(StatusCodes.CREATED).json(savedTask);
   } catch (error) {
-    return res.status(INTERNAL_SERVER_ERROR.status).json({message: INTERNAL_SERVER_ERROR.message});
+    return handleServerError(res);
   }
 };
 
@@ -28,11 +28,27 @@ export const getTaskById = async (req, res) => {
     const {id} = req.params;
     const task = await TaskService.getTaskById(id);
     if (!task) {
-      return res.status(NOT_FOUND_ERROR.status).json({message: NOT_FOUND_ERROR.message});
+      return handleNotFoundError(res);
     }
 
     return res.status(StatusCodes.OK).json(task);
   } catch (error) {
-    return res.status(INTERNAL_SERVER_ERROR.status).json({message: INTERNAL_SERVER_ERROR.message});
+    return handleServerError(res);
+  }
+};
+
+export const updateTask = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const {title, priority, tags, expired_date} = req.body;
+    const task = await TaskService.getTaskById(id);
+    if (!task) {
+      return handleNotFoundError(res);
+    }
+    const updatedTask = await TaskService.updateTask(id, {title, priority, tags, expired_date});
+
+    return res.status(StatusCodes.OK).json(updatedTask);
+  } catch (error) {
+    return handleServerError(res);
   }
 };
