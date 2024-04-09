@@ -1,5 +1,5 @@
 import {body} from 'express-validator';
-import {PriorityEnum, TagsEnum} from '../constants/task.enum.js';
+import {PriorityEnum, TagsEnum, StatusEnum} from '../constants/task.enum.js';
 import {validationErrors} from '../constants/validationErrors.js';
 
 export const createTaskValidation = [
@@ -23,3 +23,11 @@ export const createTaskValidation = [
     .isISO8601()
     .withMessage(validationErrors.INVALID_DATE)
 ];
+
+export const updateTaskStatusValidation = [
+  body('status')
+    .notEmpty()
+    .withMessage(validationErrors.FIELD_REQUIRED)
+    .isIn(Object.values(StatusEnum))
+    .withMessage(validationErrors.INVALID_VALUE)
+]

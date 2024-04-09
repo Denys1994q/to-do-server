@@ -1,6 +1,7 @@
 import {StatusCodes} from 'http-status-codes';
 import * as TaskService from '../services/task.service.js';
 import {handleServerError, handleNotFoundError} from '../utils/handleServerError.uril.js';
+import {statusMessages} from '../constants/statusMessages.js';
 
 export const getTasks = async (req, res) => {
   try {
@@ -48,6 +49,37 @@ export const updateTask = async (req, res) => {
     const updatedTask = await TaskService.updateTask(id, {title, priority, tags, expired_date});
 
     return res.status(StatusCodes.OK).json(updatedTask);
+  } catch (error) {
+    return handleServerError(res);
+  }
+};
+
+export const updateTaskStatus = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const {status} = req.body;
+    const task = await TaskService.getTaskById(id);
+    if (!task) {
+      return handleNotFoundError(res);
+    }
+    await TaskService.updateTaskStatus(id, status);
+
+    return res.status(StatusCodes.OK).json({message: statusMessages.SUCCESSFULLY_UPDATED});
+  } catch (error) {
+    return handleServerError(res);
+  }
+};
+
+export const deleteTask = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const task = await TaskService.getTaskById(id);
+    if (!task) {
+      return handleNotFoundError(res);
+    }
+    await TaskService.deleteTask(id);
+
+    return res.status(StatusCodes.OK).json({message: statusMessages.TASK_DELETED});
   } catch (error) {
     return handleServerError(res);
   }
