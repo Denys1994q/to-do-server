@@ -59,7 +59,7 @@ export const updateTaskStatus = async (id, status) => {
         _id: id
       },
       {
-        status: status
+        status
       }
     );
   } catch (error) {
