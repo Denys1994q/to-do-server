@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-  origin: ['https://to-do-list-jthm.vercel.app', 'http://localhost:5173'],
+  origin: ['https://to-do-list-g2fy-git-s16stylesadjustment-denys1994q.vercel.app', 'http://localhost:5173'],
   credentials: true
 };
 
